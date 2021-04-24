@@ -72,6 +72,51 @@ export default defineComponent({
             }
         }
 
+        const generateControlsForNestedComponent = (componentList, schema) => {
+            var node = schema
+            Object.keys(node).forEach((key, index) => {
+                var properties = node[key]
+                var type = properties['type']
+                if (type === undefined) {
+                    throw `Expected property 'type' on node '${key}'.`
+                }
+
+                if (type === 'section') {
+                    var label = properties['label']
+                    if (label === undefined) {
+                        throw `Expected property 'label' on node '${key}' because type is 'section'.`
+                    }
+
+                    var description = properties['description']
+                    var componentsTest = generateControlsForNestedComponent([], properties['schema'])
+                    console.log(componentsTest)
+                    componentList.push(generateControl({ type: 'Section', model: { title: label, description: description, components: componentsTest } }))
+                }
+                else if (type === 'entity' || type === 'heading') {
+                    var label = properties['label']
+                    if (label === undefined) {
+                        throw `Expected property 'label' on node '${key}' because type is '${type}'.`
+                    }
+
+                    componentList.push(generateControl({ type: 'Heading', model: { title: label } }))
+
+                    // TODO: should be nested component-wise, like Section, but not for Heading
+                    var nestedSchema = properties['schema']
+                    if (nestedSchema !== undefined) {
+                        generateControls(nestedSchema)
+                    }
+                } else if (type === 'text') {
+                    let model = properties
+                    model.name = key
+                    componentList.push(generateControl({ type: 'TextBox', model }))
+                }
+            })
+
+            return componentList
+
+            // componentList.push({type:'TextBox', name:'asdasd', model: {msg: schema.product.label}})
+        }
+
         const generateControls = (parent) => {
             var node = parent ?? schema
             Object.keys(node).forEach((key, index) => {
@@ -88,7 +133,9 @@ export default defineComponent({
                     }
 
                     var description = properties['description']
-                    components.push(generateControl({ type: 'Section', model: { title: label, description: description, components: generateControls(properties['schema']) } }))
+                    var componentsTest = generateControlsForNestedComponent([], properties['schema'])
+                    console.log(componentsTest)
+                    components.push(generateControl({ type: 'Section', model: { title: label, description: description, components: componentsTest } }))
                 }
                 else if (type === 'entity' || type === 'heading') {
                     var label = properties['label']
