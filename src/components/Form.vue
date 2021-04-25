@@ -15,7 +15,7 @@ export default defineComponent({
     components: ComponentsList,
     setup() {
         const components = reactive([])
-        const schema = {
+        const rootSchema = {
             // product: {
             //     type: 'heading',
             //     label: 'product',
@@ -69,8 +69,13 @@ export default defineComponent({
             }
         }
 
-        const generateControlsForNestedComponent = (componentList, schema) => {
-            var node = schema
+        const generateControls = (componentList, schema) => {
+            // This method is initially called by onMounted() without any arguments.
+            // So the schema and componentList will be those of this Form instance.
+            // Then for nested component this method is recursively called.
+            // The schema and componentList are then those of the nested component.
+            var node = schema ?? rootSchema
+            componentList ??= components
             Object.keys(node).forEach((key, index) => {
                 var properties = node[key]
                 var type = properties['type']
@@ -85,8 +90,7 @@ export default defineComponent({
                     }
 
                     var description = properties['description']
-                    var componentsTest = generateControlsForNestedComponent([], properties['schema'])
-                    console.log(componentsTest)
+                    var componentsTest = generateControls([], properties['schema'])
                     componentList.push(generateControl({ type: 'Section', model: { title: label, description: description, components: componentsTest } }))
                 }
                 else if (type === 'heading') {
@@ -112,49 +116,6 @@ export default defineComponent({
             return componentList
 
             // componentList.push({type:'TextBox', name:'asdasd', model: {msg: schema.product.label}})
-        }
-
-        const generateControls = (parent) => {
-            var node = parent ?? schema
-            Object.keys(node).forEach((key, index) => {
-                var properties = node[key]
-                var type = properties['type']
-                if (type === undefined) {
-                    throw `Expected property 'type' on node '${key}'.`
-                }
-
-                if (type === 'section') {
-                    var label = properties['label']
-                    if (label === undefined) {
-                        throw `Expected property 'label' on node '${key}' because type is 'section'.`
-                    }
-
-                    var description = properties['description']
-                    var componentsTest = generateControlsForNestedComponent([], properties['schema'])
-                    console.log(componentsTest)
-                    components.push(generateControl({ type: 'Section', model: { title: label, description: description, components: componentsTest } }))
-                }
-                else if (type === 'heading') {
-                    var label = properties['label']
-                    if (label === undefined) {
-                        throw `Expected property 'label' on node '${key}' because type is '${type}'.`
-                    }
-
-                    components.push(generateControl({ type: 'Heading', model: { title: label } }))
-
-                    // TODO: should be nested component-wise, like Section, but not for Heading
-                    var nestedSchema = properties['schema']
-                    if (nestedSchema !== undefined) {
-                        generateControls(nestedSchema)
-                    }
-                } else if (type === 'text') {
-                    let model = properties
-                    model.name = key
-                    components.push(generateControl({ type: 'TextBox', model }))
-                }
-            })
-
-            // components.push({type:'TextBox', name:'asdasd', model: {msg: schema.product.label}})
         }
 
         onMounted(generateControls)

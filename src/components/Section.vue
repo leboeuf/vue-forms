@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import ComponentsList from './ComponentsList.js'
 
 export default defineComponent({
