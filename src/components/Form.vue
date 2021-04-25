@@ -17,7 +17,7 @@ export default defineComponent({
         const components = reactive([])
         const schema = {
             // product: {
-            //     type: 'entity',
+            //     type: 'heading',
             //     label: 'product',
             //     schema: {
             //         id: {
@@ -89,7 +89,7 @@ export default defineComponent({
                     console.log(componentsTest)
                     componentList.push(generateControl({ type: 'Section', model: { title: label, description: description, components: componentsTest } }))
                 }
-                else if (type === 'entity' || type === 'heading') {
+                else if (type === 'heading') {
                     var label = properties['label']
                     if (label === undefined) {
                         throw `Expected property 'label' on node '${key}' because type is '${type}'.`
@@ -134,7 +134,7 @@ export default defineComponent({
                     console.log(componentsTest)
                     components.push(generateControl({ type: 'Section', model: { title: label, description: description, components: componentsTest } }))
                 }
-                else if (type === 'entity' || type === 'heading') {
+                else if (type === 'heading') {
                     var label = properties['label']
                     if (label === undefined) {
                         throw `Expected property 'label' on node '${key}' because type is '${type}'.`
