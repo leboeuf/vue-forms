@@ -8,14 +8,11 @@
 </template>
 
 <script>
-import { defineAsyncComponent, defineComponent, reactive, onMounted } from 'vue'
+import { defineComponent, reactive, onMounted } from 'vue'
+import ComponentsList from './ComponentsList.js'
 
 export default defineComponent({
-    components: {
-        TextBox: defineAsyncComponent(() => import('./TextBox.vue')),
-        Heading: defineAsyncComponent(() => import('./Heading.vue')),
-        Section: defineAsyncComponent(() => import('./Section.vue')),
-    },
+    components: ComponentsList,
     setup() {
         const components = reactive([])
         const schema = {
