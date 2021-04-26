@@ -45,6 +45,7 @@ import ComponentsList from './ComponentsList.js'
 export default defineComponent({
 	components: ComponentsList,
 	props: {
+		type: String,
 		title: String,
 		description: String,
 		components: Array

@@ -19,6 +19,7 @@
 import { defineProps, reactive } from 'vue'
 
 defineProps({
+    type: String,
     label: String,
     placeholder: String,
     value: String,

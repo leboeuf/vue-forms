@@ -6,6 +6,7 @@
 import { defineProps } from 'vue'
 
 defineProps({
+  type: String,
   title: String
 })
 </script>

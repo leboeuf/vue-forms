@@ -110,6 +110,10 @@ export default defineComponent({
                     let model = properties
                     model.name = key
                     componentList.push(generateControl({ type: 'TextBox', model }))
+                } else if (type === 'checkbox') {
+                    let model = properties
+                    model.name = key
+                    componentList.push(generateControl({ type: 'CheckBox', model }))
                 }
             })
 
