@@ -1,6 +1,11 @@
 {
   "name": "vue-forms",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Turns JSON into pretty forms using Vue 3 and Tailwind CSS.",
+  "repository": "https://github.com/leboeuf/vue-forms",
+  "license": "MIT",
+  "private": false,
+  "files": ["dist"],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

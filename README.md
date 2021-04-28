@@ -1,6 +1,6 @@
 # Vue Forms
 
-Turns JSON into a pretty form using Vue 3 and Tailwind CSS.
+Turns JSON into pretty forms using Vue 3 and Tailwind CSS.
 
 ## Implementation notes
 
@@ -11,3 +11,7 @@ Each component currently has an unused prop called `type`. It must be there, oth
 ```
 
 and tailwind has a `[type='checkbox']`  rule not specific to input elements. This makes the whole div look like a checkbox, which is undesired.
+
+## Publishing
+
+Install `vue-sfc-rollup` globally: `npm install -g vue-sfc-rollup`
