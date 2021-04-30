@@ -61,7 +61,7 @@ module.exports = {
 
 <script>
 import { defineComponent } from 'vue';
-import Form from '@leboeuf/vue-forms/src/components/Form.vue'
+import Form from '@leboeuf/vue-forms/Form.vue'
 
 export default defineComponent({
 	components: { Form },
@@ -109,4 +109,5 @@ and tailwind has a `[type='checkbox']`  rule not specific to input elements. Thi
 
 ## Publishing
 
-Run `npm publish` (you can run `npm publish --dry-run` to to check the result first).
+1. Bump the version number in package.json
+2. Run publish.sh

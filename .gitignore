@@ -4,6 +4,7 @@ project.lock.json
 .DS_Store
 *.pyc
 node_modules/
+dist/
 
 # Visual Studio Code
 .vscode
