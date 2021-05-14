@@ -64,6 +64,10 @@ export default defineComponent({
                     let model = properties
                     model.name = key
                     componentList.push(generateControl({ type: 'CheckBox', model }))
+                } else if (type === 'number') {
+                    let model = properties
+                    model.name = key
+                    componentList.push(generateControl({ type: 'Number', model }))
                 }
             })
 
@@ -84,3 +88,12 @@ function generateControl(control) {
     return control
 }
 </script>
+<style>
+[multiple],[type=date],[type=datetime-local],[type=email],[type=month],[type=number],[type=password],[type=search],[type=tel],[type=text],[type=time],[type=url],[type=week],select,textarea {
+    border-width: 1px;
+    border-radius: .375rem;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5rem
+}
+</style>
