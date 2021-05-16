@@ -1,7 +1,7 @@
 <template>
     <component
         v-for="component in components"
-        :key="component.controlId"
+        :key="component.name"
         :is="component.type"
         v-bind="component.model"
     ></component>
@@ -41,7 +41,7 @@ export default defineComponent({
 
                     var description = properties['description']
                     var componentsTest = generateControls([], properties['schema'])
-                    componentList.push(generateControl({ type: 'Section', model: { title: label, description: description, components: componentsTest } }))
+                    componentList.push({ type: 'Section', model: { title: label, description: description, components: componentsTest } })
                 }
                 else if (type === 'heading') {
                     var label = properties['label']
@@ -49,7 +49,7 @@ export default defineComponent({
                         throw `Expected property 'label' on node '${key}' because type is '${type}'.`
                     }
 
-                    componentList.push(generateControl({ type: 'Heading', model: { title: label } }))
+                    componentList.push({ type: 'Heading', model: { title: label } })
 
                     // TODO: should be nested component-wise, like Section, but not for Heading
                     var nestedSchema = properties['schema']
@@ -59,15 +59,15 @@ export default defineComponent({
                 } else if (type === 'text') {
                     let model = properties
                     model.name = key
-                    componentList.push(generateControl({ type: 'TextBox', model }))
+                    componentList.push({ type: 'TextBox', model })
                 } else if (type === 'checkbox') {
                     let model = properties
                     model.name = key
-                    componentList.push(generateControl({ type: 'CheckBox', model }))
+                    componentList.push({ type: 'CheckBox', model })
                 } else if (type === 'number') {
                     let model = properties
                     model.name = key
-                    componentList.push(generateControl({ type: 'Number', model }))
+                    componentList.push({ type: 'Number', model })
                 }
             })
 
@@ -82,11 +82,6 @@ export default defineComponent({
         }
     },
 })
-
-function generateControl(control) {
-    control.id = control.name + 'asdasdasd'
-    return control
-}
 </script>
 <style>
 [multiple],[type=date],[type=datetime-local],[type=email],[type=month],[type=number],[type=password],[type=search],[type=tel],[type=text],[type=time],[type=url],[type=week],select,textarea {

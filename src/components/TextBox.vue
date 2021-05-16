@@ -1,10 +1,10 @@
 <template>
     <div class="control-group">
         <div>
-            <label class="control-label" for="title">{{ label }}</label>
+            <label class="control-label" :for="name">{{ label }}</label>
         </div>
         <div>
-            <input type="text" :placeholder="placeholder" :value="value" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md"/>
+            <input type="text" :id="name" :name="name" :placeholder="placeholder" :value="value" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md"/>
         </div>
         <div>
             <small class="form-text text-muted">Some description of the field here</small>
@@ -19,6 +19,7 @@
 import { defineProps, reactive } from 'vue'
 
 defineProps({
+    name: String,
     type: String,
     label: String,
     placeholder: String,
