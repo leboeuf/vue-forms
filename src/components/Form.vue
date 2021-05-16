@@ -56,18 +56,21 @@ export default defineComponent({
                     if (nestedSchema !== undefined) {
                         generateControls(nestedSchema)
                     }
-                } else if (type === 'text') {
+                } else {
                     let model = properties
                     model.name = key
-                    componentList.push({ type: 'TextBox', model })
-                } else if (type === 'checkbox') {
-                    let model = properties
-                    model.name = key
-                    componentList.push({ type: 'CheckBox', model })
-                } else if (type === 'number') {
-                    let model = properties
-                    model.name = key
-                    componentList.push({ type: 'Number', model })
+
+                    switch (type) {
+                        case 'text':
+                            componentList.push({ type: 'TextBox', model })
+                            break;
+                        case 'checkbox':
+                            componentList.push({ type: 'CheckBox', model })
+                            break;
+                        case 'number':
+                            componentList.push({ type: 'Number', model })
+                            break;
+                    }
                 }
             })
 
