@@ -34,6 +34,7 @@ export default defineComponent({
                 type: 'section',
                 label: 'Automatic mode',
                 description: 'This is the desc',
+                submit_url: 'https://example.com',
                 schema: {
                     events_header: {
                         label: 'Events',

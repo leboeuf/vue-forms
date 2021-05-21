@@ -40,8 +40,9 @@ export default defineComponent({
                     }
 
                     var description = properties['description']
+                    var submitUrl = properties['submit_url']
                     var componentsTest = generateControls([], properties['schema'])
-                    componentList.push({ type: 'Section', model: { title: label, description: description, components: componentsTest } })
+                    componentList.push({ type: 'Section', model: { title: label, description: description, submitUrl: submitUrl, components: componentsTest } })
                 }
                 else if (type === 'heading') {
                     var label = properties['label']
