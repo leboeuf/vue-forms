@@ -63,6 +63,29 @@ export default defineComponent({
                         type: 'number'
                     }
                 }
+            },
+            table_section: {
+                type: 'section',
+                label: 'Table',
+                schema: {
+                    table: {
+                        type: 'table',
+                        headers: [ 'Room', 'Members' ],
+                        row_template: {}, // Allows adding/removing rows
+                        rows: [
+                            {
+                                test1: {
+                                    type: 'text',
+                                    value: 'test1'
+                                },
+                                test2: {
+                                    type: 'text',
+                                    value: 'test2'
+                                }
+                            }
+                        ],
+                    }
+                }
             }
         }
 

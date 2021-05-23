@@ -19,6 +19,12 @@ export default defineComponent({
     setup(props) {
         const components = reactive([])
 
+        const generateTableRow = (rowItem) => {
+            // Used when parsing a table.
+            // The Table component assumes its children are of type TableRow.
+            return { model: { components: generateControls([], rowItem) } }
+        }
+
         const generateControls = (componentList, schema) => {
             // This method is initially called by onMounted() without any arguments.
             // So the schema and componentList will be those of this Form instance.
@@ -41,8 +47,11 @@ export default defineComponent({
 
                     var description = properties['description']
                     var submitUrl = properties['submit_url']
-                    var componentsTest = generateControls([], properties['schema'])
-                    componentList.push({ type: 'Section', model: { title: label, description: description, submitUrl: submitUrl, components: componentsTest } })
+                    var subComponents = generateControls([], properties['schema'])
+                    componentList.push({ type: 'Section', model: { title: label, description: description, submitUrl: submitUrl, components: subComponents } })
+                }
+                if (type === 'table') {
+                    componentList.push({ type: 'Table', model: { rows: properties['rows'].map(x => generateTableRow(x)) } })
                 }
                 else if (type === 'heading') {
                     var label = properties['label']
