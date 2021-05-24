@@ -22,7 +22,12 @@ export default defineComponent({
         const generateTableRow = (rowItem) => {
             // Used when parsing a table.
             // The Table component assumes its children are of type TableRow.
-            return { model: { components: generateControls([], rowItem) } }
+            // The TableRow component assumes its children are of type TableCell.
+            return { model: { cells: rowItem.cells.map(generateTableRowCells) } }
+        }
+
+        const generateTableRowCells = (cells) => {
+            return { model: { components: generateControls([], cells) }}
         }
 
         const generateControls = (componentList, schema) => {
@@ -51,7 +56,8 @@ export default defineComponent({
                     componentList.push({ type: 'Section', model: { title: label, description: description, submitUrl: submitUrl, components: subComponents } })
                 }
                 if (type === 'table') {
-                    componentList.push({ type: 'Table', model: { rows: properties['rows'].map(x => generateTableRow(x)) } })
+                    var rows = properties['rows'].map(generateTableRow)
+                    componentList.push({ type: 'Table', model: { rows: rows } })
                 }
                 else if (type === 'heading') {
                     var label = properties['label']
@@ -73,13 +79,13 @@ export default defineComponent({
                     switch (type) {
                         case 'text':
                             componentList.push({ type: 'TextBox', model })
-                            break;
+                            break
                         case 'checkbox':
                             componentList.push({ type: 'CheckBox', model })
-                            break;
+                            break
                         case 'number':
                             componentList.push({ type: 'Number', model })
-                            break;
+                            break
                     }
                 }
             })

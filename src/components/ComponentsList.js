@@ -6,6 +6,7 @@ export default {
     Number: defineAsyncComponent(() => import('./Number.vue')),
     Table: defineAsyncComponent(() => import('./Table.vue')),
     TableRow: defineAsyncComponent(() => import('./TableRow.vue')),
+    TableCell: defineAsyncComponent(() => import('./TableCell.vue')),
     TextBox: defineAsyncComponent(() => import('./TextBox.vue')),
     Section: defineAsyncComponent(() => import('./Section.vue')),
 }

@@ -1,12 +1,12 @@
 <template>
-	<tr>
+	<td>
 		<component
-			v-for="component in cells"
+			v-for="component in components"
 			:key="component.name"
-			:is="'TableCell'"
+			:is="component.type"
 			v-bind="component.model"
 		></component>
-	</tr>
+	</td>
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default defineComponent({
 	components: ComponentsList,
 	props: {
 		type: String,
-		cells: Array
+		components: Array
 	}
 })
 </script>

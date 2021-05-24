@@ -74,14 +74,24 @@ export default defineComponent({
                         row_template: {}, // Allows adding/removing rows
                         rows: [
                             {
-                                test1: {
-                                    type: 'text',
-                                    value: 'test1'
-                                },
-                                test2: {
-                                    type: 'text',
-                                    value: 'test2'
-                                }
+                                cells: [
+                                    {
+                                        test1: {
+                                            type: 'text',
+                                            value: 'test1'
+                                        },
+                                        test2: {
+                                            type: 'text',
+                                            value: 'test2'
+                                        }
+                                    },
+                                    {
+                                        test3: {
+                                            type: 'text',
+                                            value: 'test3'
+                                        }
+                                    }
+                                ]
                             }
                         ],
                     }
