@@ -1,5 +1,7 @@
 <template>
-	<div class="flex items-start">
+	<div :id="name + '-container'"
+		class="flex items-start"
+	>
 		<div class="flex items-center h-5">
 			<input :id="name" :name="name" type="checkbox" value="true" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
 		</div>
@@ -11,14 +13,18 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, onMounted, onBeforeUnmount } from 'vue'
+import { attachDebugEvents, detachDebugEvents } from '../composables/useDebugEvents'
 
-defineProps({
+const props = defineProps({
 	name: String,
 	type: String,
 	label: String,
 	description: String
 })
+
+onMounted([attachDebugEvents(props)])
+onBeforeUnmount([detachDebugEvents(props)])
 </script>
 
 <style scoped>

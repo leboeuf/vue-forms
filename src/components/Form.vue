@@ -10,6 +10,7 @@
 <script>
 import { defineComponent, reactive, onMounted } from 'vue'
 import ComponentsList from './ComponentsList.js'
+import useDebugAdorners from '../composables/useDebugAdorners'
 
 export default defineComponent({
     components: ComponentsList,
@@ -53,11 +54,11 @@ export default defineComponent({
                     var description = properties['description']
                     var submitUrl = properties['submit_url']
                     var subComponents = generateControls([], properties['schema'])
-                    componentList.push({ type: 'Section', model: { title: label, description: description, submitUrl: submitUrl, components: subComponents } })
+                    componentList.push({ type: 'Section', model: { name: key, title: label, description: description, submitUrl: submitUrl, components: subComponents } })
                 }
                 if (type === 'table') {
                     var rows = properties['rows'].map(generateTableRow)
-                    componentList.push({ type: 'Table', model: { rows: rows } })
+                    componentList.push({ type: 'Table', model: { name: key, rows: rows } })
                 }
                 else if (type === 'heading') {
                     var label = properties['label']
@@ -65,7 +66,7 @@ export default defineComponent({
                         throw `Expected property 'label' on node '${key}' because type is '${type}'.`
                     }
 
-                    componentList.push({ type: 'Heading', model: { title: label } })
+                    componentList.push({ type: 'Heading', model: { name: key, title: label } })
 
                     // TODO: should be nested component-wise, like Section, but not for Heading
                     var nestedSchema = properties['schema']
@@ -90,10 +91,12 @@ export default defineComponent({
                 }
             })
 
-            return componentList
-        }
 
-        onMounted(generateControls)
+            return componentList
+        }  
+
+        window.__DEBUG__ = true // TODO: either check if window.chrome.webview exists, or make the webview pass a specific user-agent
+        onMounted([generateControls, useDebugAdorners])
 
         return {
             generateControls,
@@ -109,5 +112,20 @@ export default defineComponent({
     padding: .5rem .75rem;
     font-size: 1rem;
     line-height: 1.5rem
+}
+
+.debug-selected {
+    position: relative;
+}
+
+.debug-selected::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #33d0ff45;
+    opacity: .7;
 }
 </style>

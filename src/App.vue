@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import Form from './components/Form.vue'
 
 export default defineComponent({
@@ -64,44 +64,44 @@ export default defineComponent({
                     }
                 }
             },
-            table_section: {
-                type: 'section',
-                label: 'Table',
-                schema: {
-                    table: {
-                        type: 'table',
-                        headers: [ 'Room', 'Members' ],
-                        row_template: {}, // Allows adding/removing rows
-                        rows: [
-                            {
-                                cells: [
-                                    {
-                                        test1: {
-                                            type: 'text',
-                                            value: 'test1'
-                                        },
-                                        test2: {
-                                            type: 'text',
-                                            value: 'test2'
-                                        }
-                                    },
-                                    {
-                                        test3: {
-                                            type: 'text',
-                                            value: 'test3'
-                                        }
-                                    }
-                                ]
-                            }
-                        ],
-                    }
-                }
-            }
+            // table_section: {
+            //     type: 'section',
+            //     label: 'Table',
+            //     schema: {
+            //         table: {
+            //             type: 'table',
+            //             headers: [ 'Room', 'Members' ],
+            //             row_template: {}, // Allows adding/removing rows
+            //             rows: [
+            //                 {
+            //                     cells: [
+            //                         {
+            //                             test1: {
+            //                                 type: 'text',
+            //                                 value: 'test1'
+            //                             },
+            //                             test2: {
+            //                                 type: 'text',
+            //                                 value: 'test2'
+            //                             }
+            //                         },
+            //                         {
+            //                             test3: {
+            //                                 type: 'text',
+            //                                 value: 'test3'
+            //                             }
+            //                         }
+            //                     ]
+            //                 }
+            //             ],
+            //         }
+            //     }
+            // }
         }
 
-      	return { schema };
+      	return { schema }
 	}
-});
+})
 </script>
 
 <style>

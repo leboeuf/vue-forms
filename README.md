@@ -60,7 +60,7 @@ module.exports = {
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import Form from '@leboeuf/vue-forms/Form.vue'
 
 export default defineComponent({
@@ -87,9 +87,9 @@ export default defineComponent({
             }
         }
 
-      	return { schema };
+      	return { schema }
 	}
-});
+})
 </script>
 ```
 
