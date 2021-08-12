@@ -95,8 +95,40 @@ export default defineComponent({
             return componentList
         }  
 
-        window.__DEBUG__ = true // TODO: either check if window.chrome.webview exists, or make the webview pass a specific user-agent
-        onMounted([generateControls, useDebugAdorners])
+        // Set the __DEBUG__ flag if we're inside a WebView
+        // TODO: In the future, the WebView could pass a specific user-agent to tell us whether to enable debug.
+        // Or it could set it using CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync("window.__DEBUG__ = true");
+        window.__DEBUG__ = (window.chrome?.webview != undefined)
+
+        // TODO: extract these WebView-related functions, only add if __DEBUG__
+        const onWebViewMessageReceived = event => {
+            let targetControl = findControlById(components, event.data.payload.control)
+            if (targetcontrol) {
+                targetControl.model.label = event.data.payload.value // TODO: check the property (inside payload) instead of assuming 'label'
+            }
+        }
+
+        const findControlById = (components, controlToFind) => {
+            for (var component of components) {
+                if (component.model.name == controlToFind)
+                    return component
+                else if (component.model.components) {
+                    let foundComponent = findControlById(component.model.components, controlToFind)
+                    if (foundComponent)
+                        return foundComponent
+                }
+            }
+
+            return null
+        }
+
+        const addWebViewListeners = () => {
+            if (window.chrome?.webview != undefined) {
+                window.chrome.webview.addEventListener('message', onWebViewMessageReceived)
+            }
+        }
+
+        onMounted([generateControls, useDebugAdorners, addWebViewListeners])
 
         return {
             generateControls,
