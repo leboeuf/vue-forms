@@ -61,7 +61,7 @@ module.exports = {
 
 <script>
 import { defineComponent } from 'vue'
-import Form from '@leboeuf/vue-forms/Form.vue'
+import Form from '@leboeuf/vue-forms/components/Form.vue'
 
 export default defineComponent({
 	components: { Form },

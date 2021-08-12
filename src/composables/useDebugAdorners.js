@@ -20,11 +20,7 @@ export default function useDebugAdorners() {
 		
 		// Notify WebView
 		if (window.chrome?.webview != undefined) {
-			let message = {
-				message: 'control-selected',
-				payload: newValue
-			}
-			window.chrome.webview.postMessage(JSON.stringify(message))
+			window.chrome.webview.postMessage({ message: 'control-selected', payload: newValue })
 		}
 	})
 	
